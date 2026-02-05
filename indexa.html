@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Question</title>
-<style>
-body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial;
-}
-
-#box {
-  text-align: center;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  margin: 10px;
-  position: relative;
-}
-</style>
-</head>
-<body>
-
-<div id="box">
-  <h2>Do you like me? 😊</h2>
-  <button onclick="yes()">Yes</button>
-  <button id="no">No</button>
-</div>
-
-<script>
+ <script>
 const noBtn = document.getElementById("no");
 
 noBtn.addEventListener("mouseover", () => {
@@ -41,10 +7,35 @@ noBtn.addEventListener("mouseover", () => {
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
 });
 
+// simple signature generator (based on name)
+function signature(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = (hash << 5) - hash + name.charCodeAt(i);
+    hash |= 0;
+  }
+  return "DSN-" + Math.abs(hash);
+}
+
 function yes() {
-  alert("😂 You have no choice!");
+  const now = new Date().toLocaleString();
+  const sign = signature("Danson");
+
+  document.getElementById("box").innerHTML = `
+    <h2>I love you ❤️<br>Happy Valentine 💐</h2>
+
+    <p style="font-size:18px;color:#b30059;margin-top:10px;">
+      — <strong>Danson</strong> 💌
+    </p>
+
+    <img src="image.png" alt="Love Image">
+
+    <p style="margin-top:15px;font-size:13px;color:#555;">
+      🕒 ${now}<br>
+      🔐 Signature: <strong>${sign}</strong>
+    </p>
+
+    <span style="display:none" data-owner="Danson-Original-Valentine"></span>
+  `;
 }
 </script>
-
-</body>
-</html>
